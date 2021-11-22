@@ -1,3 +1,8 @@
+package Shop;
+
+import Inventory.Inventory;
+import Miner.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,21 +14,34 @@ public class ShopWindow extends JFrame implements ActionListener {
     Miner[] miners = minerGenerator.generateMiners();
 
     //Declare the button and labels
-    JButton button;
+    JButton shuffle;
     JLabel first, second, third, fourth, fifth, sixth;
 
-    public ShopWindow(){
+    public ShopWindow(Inventory inventory){
+        //Import inventory
+        Miner[] party = inventory.getParty();
+        int gold = inventory.getGold();
+
         //Initiate button
-        button = new JButton();
-        button.setBounds(0, 600, 795, 65); //(x,y,width,height)
-        button.addActionListener(this); //Call the action listener
-        button.setText("Reshuffle Miners");
-        button.setFocusable(false); //Make sure the text is flush with the button
+        shuffle = new JButton();
+        shuffle.setBounds(0, 400, 800, 50); //(x,y,width,height)
+        shuffle.addActionListener(this); //Call the action listener
+        shuffle.setText("Reshuffle Miners");
+        shuffle.setFocusable(false); //Make sure the text is flush with the button
+
+        //Menu Options
+        JMenuBar menuBar = new JMenuBar();
+        menuBar.setVisible(true);
+
+        JMenu menu = new JMenu("Menu");
+
+        menuBar.add(menu);
+        this.setJMenuBar(menuBar);
 
         //Initiate the Labels
         first = new JLabel();
-        first.setBounds(0, 0, 800, 100);
-        first.setText("Species: " + miners[0].getName()
+        first.setBounds(0, 50, 800, 50);
+        first.setText("1. Species: " + miners[0].getName()
                 + " Attack: " + miners[0].getAttack()
                 + " Defense: " + miners[0].getDefense()
                 + " Speed: " + miners[0].getSpeed()
@@ -36,8 +54,8 @@ public class ShopWindow extends JFrame implements ActionListener {
         first.setOpaque(true);
 
         second = new JLabel();
-        second.setBounds(0, 100, 800, 100);
-        second.setText("Species: " + miners[1].getName()
+        second.setBounds(0, 100, 800, 50);
+        second.setText("2. Species: " + miners[1].getName()
                 + " Attack: " + miners[1].getAttack()
                 + " Defense: " + miners[1].getDefense()
                 + " Speed: " + miners[1].getSpeed()
@@ -50,8 +68,8 @@ public class ShopWindow extends JFrame implements ActionListener {
         second.setOpaque(true);
 
         third = new JLabel();
-        third.setBounds(0, 200, 800, 100);
-        third.setText("Species: " + miners[2].getName()
+        third.setBounds(0, 150, 800, 50);
+        third.setText("3. Species: " + miners[2].getName()
                 + " Attack: " + miners[2].getAttack()
                 + " Defense: " + miners[2].getDefense()
                 + " Speed: " + miners[2].getSpeed()
@@ -64,8 +82,8 @@ public class ShopWindow extends JFrame implements ActionListener {
         third.setOpaque(true);
 
         fourth = new JLabel();
-        fourth.setBounds(0, 300, 800, 100);
-        fourth.setText("Species: " + miners[3].getName()
+        fourth.setBounds(0, 200, 800, 50);
+        fourth.setText("4. Species: " + miners[3].getName()
                 + " Attack: " + miners[3].getAttack()
                 + " Defense: " + miners[3].getDefense()
                 + " Speed: " + miners[3].getSpeed()
@@ -78,8 +96,8 @@ public class ShopWindow extends JFrame implements ActionListener {
         fourth.setOpaque(true);
 
         fifth = new JLabel();
-        fifth.setBounds(0, 400, 800, 100);
-        fifth.setText("Species: " + miners[4].getName()
+        fifth.setBounds(0, 250, 800, 50);
+        fifth.setText("5. Species: " + miners[4].getName()
                 + " Attack: " + miners[4].getAttack()
                 + " Defense: " + miners[4].getDefense()
                 + " Speed: " + miners[4].getSpeed()
@@ -92,8 +110,8 @@ public class ShopWindow extends JFrame implements ActionListener {
         fifth.setOpaque(true);
 
         sixth = new JLabel();
-        sixth.setBounds(0, 500, 800, 100);
-        sixth.setText("Species: " + miners[5].getName()
+        sixth.setBounds(0, 300, 800, 50);
+        sixth.setText("6. Species: " + miners[5].getName()
                 + " Attack: " + miners[5].getAttack()
                 + " Defense: " + miners[5].getDefense()
                 + " Speed: " + miners[5].getSpeed()
@@ -106,75 +124,28 @@ public class ShopWindow extends JFrame implements ActionListener {
         sixth.setOpaque(true);
 
         //Set up JFrame Elements
-        this.setSize(800, 700);
+        this.setSize(800, 600);
         this.setTitle("Mini-Miners");
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setLayout(null);
-        this.add(button);
+        this.add(menuBar);
         this.add(first);
         this.add(second);
         this.add(third);
         this.add(fourth);
         this.add(fifth);
         this.add(sixth);
+        this.add(shuffle);
         this.setVisible(true);
     }
 
     //Implement the Action Listener
     @Override
     public void actionPerformed(ActionEvent e){
-        if(e.getSource()==button){
+        if(e.getSource()==shuffle){
             //Regenerate Miners
-            miners = minerGenerator.generateMiners();
-            first.setText("Species: " + miners[0].getName()
-                    + " Attack: " + miners[0].getAttack()
-                    + " Defense: " + miners[0].getDefense()
-                    + " Speed: " + miners[0].getSpeed()
-                    + " Health: " + miners[0].getHealth()
-                    + " Gold: " + miners[0].getGold()
-                    + " Level: " + miners[0].getLevel()
-                    + " Price: " + miners[0].getPrice());
-            second.setText("Species: " + miners[1].getName()
-                    + " Attack: " + miners[1].getAttack()
-                    + " Defense: " + miners[1].getDefense()
-                    + " Speed: " + miners[1].getSpeed()
-                    + " Health: " + miners[1].getHealth()
-                    + " Gold: " + miners[1].getGold()
-                    + " Level: " + miners[1].getLevel()
-                    + " Price: " + miners[1].getPrice());
-            third.setText("Species: " + miners[2].getName()
-                    + " Attack: " + miners[2].getAttack()
-                    + " Defense: " + miners[2].getDefense()
-                    + " Speed: " + miners[2].getSpeed()
-                    + " Health: " + miners[2].getHealth()
-                    + " Gold: " + miners[2].getGold()
-                    + " Level: " + miners[2].getLevel()
-                    + " Price: " + miners[2].getPrice());
-            fourth.setText("Species: " + miners[3].getName()
-                    + " Attack: " + miners[3].getAttack()
-                    + " Defense: " + miners[3].getDefense()
-                    + " Speed: " + miners[3].getSpeed()
-                    + " Health: " + miners[3].getHealth()
-                    + " Gold: " + miners[3].getGold()
-                    + " Level: " + miners[3].getLevel()
-                    + " Price: " + miners[3].getPrice());
-            fifth.setText("Species: " + miners[4].getName()
-                    + " Attack: " + miners[4].getAttack()
-                    + " Defense: " + miners[4].getDefense()
-                    + " Speed: " + miners[4].getSpeed()
-                    + " Health: " + miners[4].getHealth()
-                    + " Gold: " + miners[4].getGold()
-                    + " Level: " + miners[4].getLevel()
-                    + " Price: " + miners[4].getPrice());
-            sixth.setText("Species: " + miners[5].getName()
-                    + " Attack: " + miners[5].getAttack()
-                    + " Defense: " + miners[5].getDefense()
-                    + " Speed: " + miners[5].getSpeed()
-                    + " Health: " + miners[5].getHealth()
-                    + " Gold: " + miners[5].getGold()
-                    + " Level: " + miners[5].getLevel()
-                    + " Price: " + miners[5].getPrice());
+            ShopFunction.regenMiners(first, second, third, fourth, fifth, sixth, miners, minerGenerator);
             System.out.println("Miners have been reshuffled");
         }
     }

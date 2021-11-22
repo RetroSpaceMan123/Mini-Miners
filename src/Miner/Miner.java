@@ -1,18 +1,20 @@
+package Miner;
+
 public class Miner {
-    //Miner Traits
+    //Miner.Miner Traits
     private final String name;
     private int attack, defense, speed, health, gold, level, price;
 
     public Miner(String name, int attack, int defense, int speed, int health, int gold, int level){
         this.name = name;
-        //Miner Stats are Randomized between half and double the introduced value
+        //Miner.Miner Stats are Randomized between half and double the introduced value
         this.attack = (int) (Math.random() * ((2 * attack) - (attack / 2)) + (attack / 2));
         this.defense = (int) (Math.random() * ((2 * defense) - (defense / 2)) + (defense / 2));
         this.speed = (int) (Math.random() * ((2 * speed) - (speed / 2)) + (speed / 2));
         this.health = (int) (Math.random() * ((2 * health) - (health / 2)) + (health / 2));
         this.gold = (int) (Math.random() * ((2 * gold) - (gold / 2)) + (gold / 2));
         this.level = level;
-        //Price for the Miner is the average of all stats times its level
+        //Price for the Miner.Miner is the average of all stats times its level
         this.price = ( level * (attack + defense + speed + health + gold) ) / 5;
     }
 
