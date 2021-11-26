@@ -1,11 +1,14 @@
 package Miner;
 
+import javax.swing.*;
+import java.io.File;
+
 public class Miner {
     //Miner.Miner Traits
-    private final String name;
+    private final String name, image;
     private int attack, defense, speed, health, gold, level, price;
 
-    public Miner(String name, int attack, int defense, int speed, int health, int gold, int level){
+    public Miner(String name, int attack, int defense, int speed, int health, int gold, int level, String image){
         this.name = name;
         //Miner.Miner Stats are Randomized between half and double the introduced value
         this.attack = (int) (Math.random() * ((2 * attack) - (attack / 2)) + (attack / 2));
@@ -14,6 +17,7 @@ public class Miner {
         this.health = (int) (Math.random() * ((2 * health) - (health / 2)) + (health / 2));
         this.gold = (int) (Math.random() * ((2 * gold) - (gold / 2)) + (gold / 2));
         this.level = level;
+        this.image = image;
         //Price for the Miner.Miner is the average of all stats times its level
         this.price = ( level * (attack + defense + speed + health + gold) ) / 5;
     }
@@ -48,6 +52,10 @@ public class Miner {
 
     public int getPrice() {
         return price;
+    }
+
+    public String getImage() {
+        return image;
     }
 
     public void updatePrice(){
